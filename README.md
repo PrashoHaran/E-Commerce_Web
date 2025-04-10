@@ -4,7 +4,7 @@ This project implements an e-commerce application using the **MERN stack** (Mong
 
 ---
 
-## 🚀 Features
+## 🚀Features
 
 ### 🛍️ User Features
 - View available products.
@@ -44,7 +44,7 @@ Follow these steps to set up the project locally.
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/HarikaraPrashath/MERN_E-com_Basic_Function.git
+https://github.com/PrashoHaran/E-Commerce_Web.git
 ```
 ### 2️⃣ Run backend and front end project (
 ```bash
