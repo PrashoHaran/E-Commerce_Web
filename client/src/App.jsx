@@ -19,6 +19,7 @@ function App() {
   const { user } = useAuthContext()
   
 
+  
   return (
     <BrowserRouter>
       <NavbarOther user={user} />
