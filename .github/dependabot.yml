@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"   # For JavaScript
+    directory: "/client"       # Frontend packages
+    schedule:
+      interval: "weekly"       # Checks every Monday
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "npm"   
+    directory: "/server"       # Backend packages
+    schedule:
+      interval: "weekly"
