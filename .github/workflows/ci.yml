@@ -1,4 +1,4 @@
-name: E Commerce platform CI Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -26,10 +26,10 @@ jobs:
         run: npm install
 
       - name: Run Unit Tests
-        run: npx jest --config=jest.unit.config.js
+        run: npm run test:unit
 
       - name: Run Integration Tests
-        run: npx jest --config=jest.integration.config.js
+        run: npm run test:integration
 
   codeql-analysis:
     runs-on: ubuntu-latest
@@ -51,4 +51,4 @@ jobs:
         uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
-        uses: github/code
+        uses: github/codeql-action/analyze@v2
