@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: E Commerce platform CI Pipeline
 
 on:
   push:
