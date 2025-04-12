@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest --coverage", 
-    "test:unit": "jest --config=jest.unit.config.js",  
+    "test:unit": "npx jest --config=jest.unit.config.js",  
     "test:integration": "jest --config=jest.integration.config.js", 
     "start": "node app.js",  
     "release": "standard-version"  

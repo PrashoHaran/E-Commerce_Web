@@ -26,10 +26,10 @@ jobs:
         run: npm install
 
       - name: Run Unit Tests
-        run: npm run test:unit
+        run: npx jest --config=jest.unit.config.js
 
       - name: Run Integration Tests
-        run: npm run test:integration
+        run: npx jest --config=jest.integration.config.js
 
   codeql-analysis:
     runs-on: ubuntu-latest
@@ -51,4 +51,4 @@ jobs:
         uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/code
