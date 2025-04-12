@@ -17,20 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      
 
       - name: Install dependencies
         run: npm install
@@ -40,13 +30,6 @@ jobs:
 
       - name: Run Integration Tests
         run: npm run test:integration
-
-      - name: Upload Coverage & Test Results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-${{ matrix.node-version }}
-          path: ./coverage
 
   codeql-analysis:
     runs-on: ubuntu-latest
