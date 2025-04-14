@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    image: your-image-name
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app  # Mount the code for live reloading
+    ports:
+      - "3000:3000"  # Open the development server port
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.development  # Use .env.development for development environment
+    command: ["npm", "run", "dev"]
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
