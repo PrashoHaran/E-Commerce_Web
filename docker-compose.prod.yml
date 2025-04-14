@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    image: your-image-name:latest  # Use the production-ready image
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env.production  # Use .env.production for production environment
+    ports:
+      - "80:3000"  # Expose to port 80 for production
+    command: ["npm", "run", "start"]
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"

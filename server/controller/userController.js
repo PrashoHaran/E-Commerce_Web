@@ -1,17 +1,16 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');  // bcryptjs instead of bcrypt
 const validator = require('validator');
-const User = require('../models/userModel.js'); 
+const User = require('../models/userModel.js');
 const jwt = require("jsonwebtoken");
-
 
 // Utility function to create a JWT
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
-  }
-  
+}
+
 // Register method
 const registerUser = async (req, res) => {
-    const { email, password,confirmPassword} = req.body;
+    const { email, password, confirmPassword } = req.body;
 
     try {
         if (!email || !password || !confirmPassword) {
@@ -38,12 +37,11 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Email already in use.' });
         }
 
-         
-       
-        const salt = await bcrypt.genSalt(10);
+        // Use bcryptjs to hash the password
+        const salt = await bcrypt.genSalt(10); 
         const hashPassword = await bcrypt.hash(password, salt);
 
-        const newUser = new User({ email, password: hashPassword,role:'user' });
+        const newUser = new User({ email, password: hashPassword, role: 'user' });
         const user = await newUser.save();
 
         const token = createToken(user._id);
@@ -58,7 +56,7 @@ const registerUser = async (req, res) => {
         .json({
             success: true,
             message: 'Registration successful',
-            user: { id: user._id, email: user.email , role:user.role},
+            user: { id: user._id, email: user.email, role: user.role },
             token
         });
     } catch (error) {
@@ -89,7 +87,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // Check password match
+        // Use bcryptjs to compare the password
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({
@@ -98,25 +96,25 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const token = createToken(user._id)
+        const token = createToken(user._id);
 
         // Set cookie with token
-       res.cookie('token', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-})
-.status(200)
-.json({
-    success: true,
-    message: 'Registration successful',
-    user: {
-        id: user._id,
-        email: user.email,
-        role:user.role
-    },
-    token
-});
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        })
+        .status(200)
+        .json({
+            success: true,
+            message: 'Login successful',
+            user: {
+                id: user._id,
+                email: user.email,
+                role: user.role
+            },
+            token
+        });
 
     } catch (error) {
         console.error('Login error:', error.message);
